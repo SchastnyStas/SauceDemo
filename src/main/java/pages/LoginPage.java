@@ -1,6 +1,7 @@
 package pages;
 
 import entity.User;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,6 +22,7 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("User is logging in")
     public ProductsPage login(User user) {
         driver.findElement(USERNAME_INPUT).sendKeys(user.getUsername());
         driver.findElement(PASSWORD_INPUT).sendKeys(user.getPassword());

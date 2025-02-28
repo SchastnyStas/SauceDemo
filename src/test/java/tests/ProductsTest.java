@@ -1,10 +1,12 @@
 package tests;
 
 import constants.IConstants;
+import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ProductsTest extends Preconditions {
+
     @Test
     public void isAddToCartButtonDisplayedTest() {
         loginPage.openPage(IConstants.LOGIN_PAGE_URL);

@@ -4,13 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static constants.IConstants.*;
+import static constants.IConstants.CART_PAGE_URL;
 
 public class CartTest extends Preconditions {
 
     @DataProvider(name = "products")
     public Object[][] productsAndPrices() {
-        return new Object[][] {
+        return new Object[][]{
                 {SAUCE_LABS_BACKPACK, "$29.99"},
                 {SAUCE_LABS_BOLT_T_SHIRT, "$15.99"},
                 {SAUCE_LABS_BIKE_LIGHT, "$9.99"},
@@ -21,30 +21,31 @@ public class CartTest extends Preconditions {
     }
 
     @Test(dataProvider = "products")
-    public void addProductToCartWithDataProviderTest(String product){
-        productSteps.loginAndAddProduct(USERNAME,PASSWORD,product);
+    public void addProductToCartWithDataProviderTest(String product) {
+        productSteps.loginAndAddProduct(USERNAME, PASSWORD, product);
         cartPage.openCartPage(CART_PAGE_URL);
         Assert.assertTrue(cartPage.isProductDisplayed(product));
+
     }
 
     @Test
-    public void addProductToCartTest(){
-        productSteps.loginAndAddProduct(USERNAME,PASSWORD,SAUCE_LABS_BACKPACK);
+    public void addProductToCartTest() {
+        productSteps.loginAndAddProduct(USERNAME, PASSWORD, SAUCE_LABS_BACKPACK);
         cartPage.openCartPage(CART_PAGE_URL);
         Assert.assertEquals(cartPage.getProductPrice(SAUCE_LABS_BACKPACK), "$19.99");
     }
 
     @Test(dataProvider = "products")
     public void checkProductPriceTest(String product) {
-        productSteps.loginAndAddProduct(USERNAME,PASSWORD,product);
+        productSteps.loginAndAddProduct(USERNAME, PASSWORD, product);
         String productPrice = productsPage.getProductPrice(product);
         cartPage.openCartPage(CART_PAGE_URL);
-        Assert.assertEquals(cartPage.getProductPrice(product),productPrice);
+        Assert.assertEquals(cartPage.getProductPrice(product), productPrice);
     }
 
     @Test(dataProvider = "products")
     public void removeItemFromCartTest(String product) {
-        productSteps.loginAndAddProduct(USERNAME,PASSWORD,product);
+        productSteps.loginAndAddProduct(USERNAME, PASSWORD, product);
         cartPage
                 .openCartPage(CART_PAGE_URL)
                 .removeProductFromCart(product);
@@ -56,6 +57,6 @@ public class CartTest extends Preconditions {
         productSteps.loginAndAddProduct(USERNAME, PASSWORD, SAUCE_LABS_BACKPACK);
         productsPage.addProductToCart(SAUCE_LABS_FLEECE_JACKET);
         cartPage.openCartPage(CART_PAGE_URL);
-        Assert.assertEquals(cartPage.getProductQuantity().toString(),"2");
+        Assert.assertEquals(cartPage.getProductQuantity().toString(), "2");
     }
 }
